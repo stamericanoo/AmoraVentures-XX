@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amora Ventures | Final Plant Design 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Inter:wght@300;400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --navy: #020617;
+            --navy-panel: #0f172a;
+            --maroon: #7f1d1d;
+            --maroon-accent: #dc2626;
+            --white: #f8fafc;
+            --gold: #fbbf24;
+            --slate: #64748b;
+        }
+
+        * { scroll-behavior: smooth; box-sizing: border-box; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--navy); color: var(--white); overflow-x: hidden; }
+
+        /* HERO & NAVIGATION */
+        .hero {
+            height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            background: linear-gradient(rgba(2, 6, 23, 0.9), rgba(127, 29, 29, 0.5)), url('https://images.unsplash.com/photo-1541976590-713941681591?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover; background-attachment: fixed; text-align: center;
+        }
+        .hero h1 { font-family: 'Montserrat'; font-size: 5rem; font-weight: 900; margin: 0; letter-spacing: -2px; }
+        .hero h1 span { color: var(--maroon-accent); }
+        
+        .header-stats {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+            padding: 20px 10%; background: var(--navy-panel); border-bottom: 4px solid var(--maroon-accent);
+            position: sticky; top: 0; z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .stat-item h4 { font-size: 0.7rem; color: var(--slate); margin: 0; text-transform: uppercase; letter-spacing: 1px; }
+        .stat-item .val { font-size: 1.8rem; font-weight: 800; color: var(--white); }
+
+        /* TIER SELECTOR ALA AZZAM */
+        .tier-control {
+            background: var(--navy-panel); padding: 40px 10%; text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .tier-btn {
+            padding: 15px 30px; border-radius: 8px; border: none; cursor: pointer;
+            margin: 10px; font-weight: 800; transition: 0.3s; font-size: 0.9rem;
+        }
+        .btn-basic { background: #475569; color: white; }
+        .btn-std { background: #059669; color: white; }
+        .btn-premium { background: #7c3aed; color: white; }
+        .tier-btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+
+        /* CONTENT SECTIONS */
+        section { padding: 100px 10%; }
+        .section-title { font-family: 'Montserrat'; font-size: 2.5rem; font-weight: 900; margin-bottom: 50px; text-transform: uppercase; }
+        .section-title span { color: var(--maroon-accent); }
+
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .equip-card { 
+            background: white; color: #0f172a; padding: 35px; border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2); transition: 0.4s;
+        }
+        .equip-card:hover { transform: translateY(-10px); }
+        .equip-card h3 { color: var(--navy); border-bottom: 2px solid #e2e8f0; padding-bottom: 15px; margin-bottom: 20px; }
+        
+        .data-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f1f5f9; font-size: 0.95rem; }
+        .data-row b { color: var(--maroon-accent); }
+
+        /* FORMULA BOX */
+        .formula { 
+            background: #000; color: #4ade80; font-family: 'JetBrains Mono'; 
+            padding: 25px; border-radius: 8px; margin: 20px 0; border-left: 5px solid var(--maroon-accent);
+        }
+
+        /* FOOTER INFO ALA AZZAM */
+        .disclaimer-box {
+            background: #1e293b; border: 1px solid var(--gold); padding: 30px;
+            border-radius: 12px; margin-top: 50px; display: flex; gap: 20px; align-items: center;
+        }
+        .meta-footer {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px;
+            color: var(--slate); font-size: 0.9rem;
+        }
+
+        footer { background: #020617; padding: 100px 10%; text-align: center; border-top: 10px solid var(--maroon); }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <h1 id="top">RANCANGAN PABRIK <span>AMORA</span></h1>
+        <p>KAPASITAS 1000 METRIK TON PER HARI</p>
+    </section>
+
+    <div class="header-stats">
+        <div class="stat-item">
+            <h4>Target Produksi</h4>
+            <div class="val">1,000 <small>ton/hari</small></div>
+        </div>
+        <div class="stat-item">
+            <h4>Kapasitas Tahunan</h4>
+            <div class="val">330,000 <small>ton/tahun</small></div>
+        </div>
+        <div class="stat-item">
+            <h4>Efisiensi Rata-Rata</h4>
+            <div class="val" id="avg-eff">95.0%</div>
+        </div>
+        <div class="stat-item">
+            <h4>Biaya Bahan Baku</h4>
+            <div class="val">Rp 5.48 M <small>/hari</small></div>
+        </div>
+    </div>
+
+    <div class="tier-control">
+        <h2 style="margin-bottom: 25px;">PILIHAN KONFIGURASI MESIN</h2>
+        <button class="tier-btn btn-basic" onclick="updatePlant('basic')">$ Set Semua Basic (Hemat)</button>
+        <button class="tier-btn btn-std" onclick="updatePlant('standard')">⭐ Set Semua Standard (Rekomendasi)</button>
+        <button class="tier-btn btn-premium" onclick="updatePlant('premium')">👑 Set Semua Premium (Optimal)</button>
+        <p style="color: var(--slate); margin-top: 20px;">Data diperbarui otomatis saat pilihan mesin berubah</p>
+    </div>
+
+    <section id="raw-material">
+        <h2 class="section-title">01. Penyiapan <span>Bahan Baku</span></h2>
+        <div class="card-grid">
+            <div class="equip-card">
+                <h3>Sulfur Melter (M-101)</h3>
+                <div class="data-row">Tipe: <span id="m-tier">Standard</span></div>
+                <div class="data-row">Harga: <b id="m-price">Rp 12.00 M</b></div>
+                <div class="data-row">Efisiensi: <b id="m-eff">94%</b></div>
+                <div class="data-row">Yield: <b>99.2%</b></div>
+            </div>
+            <div class="equip-card" style="background: var(--navy-panel); color: white;">
+                <h3 style="color: white;">Kinetika Pelelehan</h3>
+                <p>Sulfur padat dipanaskan hingga fase cair (145°C) menggunakan steam coil untuk dialirkan ke burner.</p>
+                <div class="formula">S(s) + Heat → S(l)</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="process" style="background: rgba(255,255,255,0.02);">
+        <h2 class="section-title">02. Pembakaran & <span>Konversi</span></h2>
+        
+        <div class="card-grid">
+            <div class="equip-card">
+                <h3>Sulfur Burner (F-101)</h3>
+                <div class="data-row">Tipe: <span id="f-tier">Standard</span></div>
+                <div class="data-row">Harga: <b id="f-price">Rp 26.00 M</b></div>
+                <div class="data-row">Efisiensi: <b id="f-eff">95%</b></div>
+            </div>
+            <div class="equip-card">
+                <h3>DCDA Converter (R-201)</h3>
+                <div class="data-row">Tipe: <span id="r-tier">Standard</span></div>
+                <div class="data-row">Harga: <b id="r-price">Rp 48.00 M</b></div>
+                <div class="data-row">Efisiensi: <b id="r-eff">98%</b></div>
+            </div>
+        </div>
+        <div class="formula" style="margin-top: 40px;">
+            2SO₂(g) + O₂(g) ⇌ 2SO₃(g) | V₂O₅ Catalyst | ΔH = -197 kJ/mol
+        </div>
+    </section>
+
+    <section id="economics">
+        <h2 class="section-title">03. Analisis <span>Ekonomi</span></h2>
+        <div style="background: white; padding: 40px; border-radius: 15px; height: 400px;">
+            <canvas id="financeChart"></canvas>
+        </div>
+
+        <div class="disclaimer-box">
+            <span style="font-size: 2.5rem;">⚠️</span>
+            <div>
+                <h4 style="margin: 0; color: var(--gold);">DISCLAIMER</h4>
+                <p style="margin: 5px 0 0 0; font-size: 0.85rem; color: #cbd5e1;">Website ini merupakan <b>simulasi akademis</b> untuk proyek kelas 12. Semua perhitungan merupakan estimasi berdasarkan data industri. Data diperbarui terakhir: 28 Februari 2026.</p>
+            </div>
+        </div>
+
+        <div class="meta-footer">
+            <div>
+                <p>🎓 <b>Mata Pelajaran:</b> Kimia Industri - Plant Design</p>
+                <p>👥 <b>Anggota Tim:</b> Aisha, Keysha, Jovita 12C</p>
+            </div>
+            <div style="text-align: right;">
+                <p>🛠️ <b>Versi:</b> 4.0</p>
+                <p>📅 <b>Tahun Ajaran:</b> 2025/2026</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <h2 style="font-family: 'Montserrat'; font-size: 2.5rem;">AMORA VENTURES</h2>
+        <p>&copy; 2026 Rancangan Pabrik Asam Sulfat 1000 MTPD - Proyek Kelas 12</p>
+        <a href="#top" style="color: var(--maroon-accent); text-decoration: none; font-weight: bold;">KEMBALI KE ATAS ↑</a>
+    </footer>
+
+    <script>
+        const plantData = {
+            basic: { m:10, f:20, r:35, effs:[88, 90, 92] },
+            standard: { m:12, f:26, r:48, effs:[94, 95, 98] },
+            premium: { m:18, f:35, r:65, effs:[98, 99, 99.7] }
+        };
+
+        function updatePlant(tier) {
+            const d = plantData[tier];
+            const labels = tier.charAt(0).toUpperCase() + tier.slice(1);
+            
+            document.getElementById('m-tier').innerText = labels;
+            document.getElementById('m-price').innerText = `Rp ${d.m}.00 M`;
+            document.getElementById('m-eff').innerText = `${d.effs[0]}%`;
+
+            document.getElementById('f-tier').innerText = labels;
+            document.getElementById('f-price').innerText = `Rp ${d.f}.00 M`;
+            document.getElementById('f-eff').innerText = `${d.effs[1]}%`;
+
+            document.getElementById('r-tier').innerText = labels;
+            document.getElementById('r-price').innerText = `Rp ${d.r}.00 M`;
+            document.getElementById('r-eff').innerText = `${d.effs[2]}%`;
+
+            const avg = (d.effs.reduce((a,b) => a+b) / 3).toFixed(1);
+            document.getElementById('avg-eff').innerText = `${avg}%`;
+        }
+
+        const ctx = document.getElementById('financeChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Thn 1', 'Thn 2', 'Thn 3', 'Thn 4', 'Thn 5'],
+                datasets: [{
+                    label: 'Proyeksi Keuntungan (Miliar IDR)',
+                    data: [10, 45, 94.5, 150, 220],
+                    borderColor: '#dc2626',
+                    tension: 0.4,
+                    fill: true,
+                    backgroundColor: 'rgba(220, 38, 38, 0.1)'
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        updatePlant('standard');
+    </script>
+</body>
+</html>
